@@ -14,7 +14,7 @@ public class GrpcClientDemo {
     private void remoteCall(String name) {
         HelloRequest.Builder builder = HelloRequest.newBuilder();
         builder.setName(name);
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext(true).build();
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
         GreeterGrpc.GreeterBlockingStub stub = GreeterGrpc.newBlockingStub(channel);
         HelloReply helloReply = stub.sayHello(builder.build());
         System.out.println(helloReply.getMessage());

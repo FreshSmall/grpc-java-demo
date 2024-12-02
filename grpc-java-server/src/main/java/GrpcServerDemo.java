@@ -22,7 +22,7 @@ public class GrpcServerDemo {
     }
 
     private void blockUntilShutdown() throws InterruptedException {
-        if (server!=null) {
+        if (server != null) {
             server.awaitTermination();
         }
     }
