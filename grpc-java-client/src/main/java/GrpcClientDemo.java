@@ -1,3 +1,5 @@
+import config.ClientMetaInterceptor;
+import io.grpc.ClientInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.examples.helloworld.GreeterGrpc;
@@ -12,11 +14,15 @@ public class GrpcClientDemo {
     }
 
     private void remoteCall(String name) {
+
+        ClientInterceptor interceptor = new ClientMetaInterceptor();
         HelloRequest.Builder builder = HelloRequest.newBuilder();
         builder.setName(name);
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
-        GreeterGrpc.GreeterBlockingStub stub = GreeterGrpc.newBlockingStub(channel);
-        HelloReply helloReply = stub.sayHello(builder.build());
-        System.out.println(helloReply.getMessage());
+        for (int i = 0; i < 2; i++) {
+            GreeterGrpc.GreeterBlockingStub stub = GreeterGrpc.newBlockingStub(channel);
+            HelloReply helloReply = stub.sayHello(builder.build());
+            System.out.println(helloReply.getMessage());
+        }
     }
 }
