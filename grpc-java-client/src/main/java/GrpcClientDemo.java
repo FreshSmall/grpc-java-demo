@@ -10,7 +10,8 @@ public class GrpcClientDemo {
 
     public static void main(String[] args) {
         GrpcClientDemo demo = new GrpcClientDemo();
-        demo.remoteCall("test");
+        String name = "test";
+        demo.remoteCall(name);
     }
 
     private void remoteCall(String name) {
